@@ -1,0 +1,28 @@
+{% extends 'list/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+            <!-- top -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>Delete Item</h1>
+                </div>
+            </div>
+            <!-- // top -->
+        <div class="row mt-6">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">Do you want to delete the item-</p>
+                        <h6 class="card-title">{{item}}</h6>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <a class="btn btn-info" style="margin-right: 20px" href="{% url 'home' %}">Cancel</a>
+                            <input class="btn btn-danger" style="margin-left: 20px" type="submit" value="Confirm">
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}

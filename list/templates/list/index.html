@@ -1,0 +1,74 @@
+{% extends 'list/layout.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}View List{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+            <!-- top -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>View Grocery List</h1>
+                    <a href="{% url 'add' %}">Add Item</a>
+                </div>
+                <div class="col-lg-6 float-right">
+                    <div class="row">
+                        <form method="get">
+                            <div class="col-lg-12">
+                                <!-- Date Filtering-->
+                                {{ date_filter.form.date_created|attr:"class:form-control"|attr:"type:date" }}
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="submit" class="btn btn-danger" value="filter">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- // top -->
+            <!-- Grocery Cards -->
+            <div class="row mt-4">
+                <!--- -->
+                <!-- Loop This -->
+                {% for item in pending_items %}
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.item_name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ item.quantity }}</h6>
+                                <p class="text-info">{{ item.item_status }}</p>
+                                <a class="btn btn-info" href="{% url 'update' item.id %}" style="margin-right: 20px">Update</a>
+                                <a class="btn btn-danger" href="{% url 'delete' item.id %}" style="margin-left: 20px">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for item in unavailable_items %}
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.item_name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ item.quantity }}</h6>
+                                <p class="text-danger">{{ item.item_status }}</p>
+                                <a class="btn btn-info" href="{% url 'update' item.id %}" style="margin-right: 20px">Update</a>
+                                <a class="btn btn-danger" href="{% url 'delete' item.id %}" style="margin-left: 20px">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for item in bought_items %}
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.item_name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ item.quantity }}</h6>
+                                <p class="text-success">{{ item.item_status }}</p>
+                                <a class="btn btn-info" href="{% url 'update' item.id %}" style="margin-right: 20px">Update</a>
+                                <a class="btn btn-danger" href="{% url 'delete' item.id %}" style="margin-left: 20px">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+{% endblock%}

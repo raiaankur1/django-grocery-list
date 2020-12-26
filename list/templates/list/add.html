@@ -1,0 +1,41 @@
+{% extends 'list/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Add Item{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Add Grocery List</h1>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Item name</label>
+                    {% render_field form.item_name class="input form-control" placeholder="Item name" %}
+                </div>
+                <div class="form-group">
+                    <label>Item quantity</label>
+                    {% render_field form.quantity class="input form-control" placeholder="Item quantity" %}
+                </div>
+                <div class="form-group">
+                    <label>Item status</label>
+                    {% render_field form.item_status class="input form-control" %}
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    {{ form.date_created|attr:"class:input form-control"|attr:"type:date" }}
+                </div>
+                {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% endif %}
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-danger">
+                </div>
+            </form>
+        </div>
+{% endblock %}
